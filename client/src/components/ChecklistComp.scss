@@ -1,0 +1,65 @@
+label {
+  display: flex;
+  align-items: center; // Alinha o checkbox e o texto verticalmente
+  gap: 10px; // Espaçamento entre o checkbox e o texto
+  cursor: pointer;
+  font-size: 50px;
+  color: #333; // Cor do texto
+  margin: 10px;
+  padding: 5px;
+}
+
+input[type="checkbox"] {
+
+  // Esconde o checkbox padrão
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border: 3px solid #7c3aed; // Roxo médio
+  border-radius: 4px;
+  position: absolute;
+  transition: all 0.2s ease-in-out;
+  transform: scale(1.2);
+
+  // Estilo quando o checkbox está marcado
+  &:checked {
+    background-color: #7c3aed; // Roxo médio
+    border-color: #7c3aed;
+
+    // Adiciona um "check" animado
+    &::after {
+      content: '';
+      position: absolute;
+      left: 6px;
+      top: 2px;
+      width: 5px;
+      height: 10px;
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+      animation: checkAnimation 0.3s ease-in-out;
+    }
+  }
+
+  // Efeito de hover
+  &:hover {
+    border-color: #6d28d9; // Roxo mais escuro
+  }
+
+  // Efeito de foco (acessibilidade)
+  &:focus {
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.3); // Sombra roxa
+  }
+}
+
+// Animação do "check"
+@keyframes checkAnimation {
+  from {
+    transform: scale(0) rotate(0deg);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) rotate(45deg);
+    opacity: 1;
+  }
+}
