@@ -4,10 +4,16 @@ import fs from 'fs';
 import path from 'path';
 
 const app = express();
-const port = 5000;
+const port = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
+
+app.use(cors({
+    origin: process.env.NODE_ENV === 'production'
+        ? 'https://check-share.onrender.com'
+        : 'http://localhost:3000'
+}));
 
 // Caminho para o arquivo JSON
 const dataPath = path.join(__dirname, '../data.json');
@@ -66,4 +72,10 @@ app.get('/api/checklists/:id', (req: Request, res: Response) => {
 
 app.listen(port, () => {
     console.log(`Servidor rodando em http://localhost:${port}`);
+});
+
+app.use(express.static(path.join(__dirname, '../client/build')));
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
 });
