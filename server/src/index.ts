@@ -74,8 +74,8 @@ app.listen(port, () => {
     console.log(`Servidor rodando em http://localhost:${port}`);
 });
 
-app.use(express.static(path.join(__dirname, '../client/build')));
-
+const rootDir = path.resolve(__dirname, '../..');
+app.use(express.static(path.join(rootDir, 'client/dist')));
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+    res.sendFile(path.join(rootDir, 'client/dist', 'index.html'));
 });
